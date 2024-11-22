@@ -15,6 +15,10 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Domo.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Domo.makeDomo);
 
+  app.get('/animal', mid.requiresLogin, controllers.Animal.animalPage);
+  app.post('/animal', mid.requiresLogin, controllers.Animal.makeAnimal);
+  app.post('/editAnimal', mid.requiresLogin, controllers.Animal.editAnimal);
+
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 
