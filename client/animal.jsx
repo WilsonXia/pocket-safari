@@ -24,15 +24,16 @@ const handleAnimalEdit = (e, id, onAnimalAdded) => {
     e.preventDefault();
     helper.hideError();
 
-    const greeting = e.target.querySelector('#animalDescription').value;
+    const description = e.target.querySelector('#animalDescription').value;
+    const rarity = e.target.querySelector('#animalRarity').value;
     const animalID = id;
 
-    if (!greeting) {
-        helper.handleError('A greeting is required');
+    if (!description && !rarity) {
+        helper.handleError('No changes have been made');
         return false;
     }
 
-    helper.sendPost(e.target.action, { animalID, greeting }, onAnimalAdded);
+    helper.sendPost(e.target.action, { animalID, rarity, description }, onAnimalAdded);
     return false;
 }
 
@@ -48,7 +49,14 @@ const AnimalForm = (props) => {
             <label htmlFor="name">Name: </label>
             <input type="text" id="animalName" name="name" placeholder="Animal Name" />
             <label htmlFor="rarity">Rarity: </label>
-            <input type="number" id="rarity" name='rarity' min='0' />
+            <select name="rarity" id="animalRarity">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
             <label htmlFor="description">Description: </label>
             <input type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
 
@@ -58,16 +66,26 @@ const AnimalForm = (props) => {
 }
 
 // Make something that allows you to edit pre-existing animals
-const EditGreetingForm = (props) => {
+const EditAnimalForm = (props) => {
     return (
-        <form id="greetingForm"
+        <form id="animalForm"
             onSubmit={(e) => handleAnimalEdit(e, props.animalID, props.triggerReload)}
-            name='greetingForm'
+            name='animalForm'
             action='/editAnimal'
             method='POST'
-            className='greetingForm'
+            className='animalForm'
         >
-            <label htmlFor="greeting">New Description: </label>
+            <label htmlFor="rarity">New Rarity: </label>
+            <select name="rarity" id="animalRarity">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            
+            <label htmlFor="description">New Description: </label>
             <input type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
             <input type='submit' value="Submit" />
         </form>
@@ -99,10 +117,10 @@ const AnimalList = (props) => {
             <div key={animal.id} className='animal'>
                 <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' />
                 <h3 className='animalName'>Name: {animal.name}</h3>
-                <h3 className='animalAge'>Age: {animal.age}</h3>
-                <h3 className='animalName'>"{animal.greeting}"</h3>
+                <h3 className='animalRarity'>Rarity: {animal.rarity}</h3>
+                <h3 className='animalDescription'>"{animal.description}"</h3>
                 <div>
-                    <EditGreetingForm animalID={animal._id} triggerReload={props.triggerReload} />
+                    <EditAnimalForm animalID={animal._id} triggerReload={props.triggerReload} />
                 </div>
             </div>
         );

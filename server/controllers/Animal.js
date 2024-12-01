@@ -7,7 +7,7 @@ const animalPage = (req, res) => {
 
 const getAnimals = async (req, res) => {
     try {
-        const docs = await Animal.find().select('name animalID').lean().exec();
+        const docs = await Animal.find({}).lean().exec();
         return res.json({ animals: docs });
     } catch (err) {
         console.log(err);
@@ -19,18 +19,18 @@ const editAnimal = async (req, res) => {
     // Check if the edits are there
     // Editable values: Description, rarity
     if (!req.body.description && !req.body.rarity) {
-        return res.status(400).json({ error: 'Please enter at least one of the forms' })
+        return res.status(400).json({ error: 'Please edit at least one of the forms' })
     }
     // Find change rules
     let changes = {};
     if (req.body.rarity) {
-        changes.rarity = req.body.rarity;
+        changes.rarity = parseInt(req.body.rarity);
     }
     if (req.body.description) {
         changes.description = req.body.description;
     }
 
-    const query = { animalId: req.body.animalID };
+    const query = { _id: req.body.animalID };
     try {
         // Fetch the currently selected Animal and update it
         const doc = await Animal.findOneAndUpdate(query, {
@@ -56,7 +56,6 @@ const makeAnimal = async (req, res) => {
 
     const animalData = {
         name: req.body.name,
-        animalID: Animal.count(),
         rarity: req.body.rarity,
         description: req.body.description,
     };
@@ -64,7 +63,7 @@ const makeAnimal = async (req, res) => {
     try {
         const newAnimal = new Animal(animalData);
         await newAnimal.save();
-        return res.status(201).json({ name: newAnimal.name, animalID: newAnimal.animalID });
+        return res.status(201).json({ name: newAnimal.name, animalID: newAnimal._id });
     } catch (err) {
         console.log(err);
         if (err.code === 11000) {

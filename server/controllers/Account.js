@@ -1,6 +1,6 @@
 const models = require('../models');
-
 const { Account } = models;
+const Zoo = require('./Zoo.js');
 
 const loginPage = (req, res) => res.render('login');
 
@@ -47,9 +47,13 @@ const signup = async (req, res) => {
   try {
     const hash = await Account.generateHash(pass);
     const newAccount = new Account({ username, password: hash });
+    // Create the zoo after making an account
+    await Zoo.createZoo(newAccount._id);
+    // Update the zoo
+    await Zoo.updateZooAnimals(newAccount._id);
     await newAccount.save();
     req.session.account = Account.toAPI(newAccount);
-    return res.json({ redirect: '/maker' });
+    return res.status(201).json({ redirect: '/maker' });
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {

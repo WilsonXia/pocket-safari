@@ -10,10 +10,6 @@ const AnimalSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
-  animalID: {
-    type: Number,
-    min: 0,
-  },
   description: {
     type: String,
     trim: true,
@@ -25,11 +21,6 @@ const AnimalSchema = new mongoose.Schema({
     max: 5,
     required: true,
   },
-});
-
-AnimalSchema.statics.toAPI = (doc) => ({
-  name: doc.name,
-  animalID: doc.animalID,
 });
 
 const AnimalModel = mongoose.model('Animal', AnimalSchema);
