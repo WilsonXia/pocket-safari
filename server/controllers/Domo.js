@@ -2,9 +2,7 @@ const models = require('../models');
 
 const { Domo } = models;
 
-const makerPage = (req, res) => {
-  return res.render('app');
-};
+const makerPage = (req, res) => res.render('app');
 
 const getDomos = async (req, res) => {
   try {
@@ -21,22 +19,24 @@ const getDomos = async (req, res) => {
 const editSpeech = async (req, res) => {
   // Check if the speech edit is there
   if (!req.body.greeting) {
-    return res.status(400).json({ error: 'Please enter a new greeting' })
+    return res.status(400).json({ error: 'Please enter a new greeting' });
   }
   const query = { _id: req.body.domoID };
   try {
     // Fetch the currently selected Domo and update it
-    const doc = await Domo.findOneAndUpdate(query, {
-      $set: { greeting: req.body.greeting },
-    },
-      { returnDocument: 'after', }
+    const doc = await Domo.findOneAndUpdate(
+      query,
+      {
+        $set: { greeting: req.body.greeting },
+      },
+      { returnDocument: 'after' },
     ).lean().exec();
-    return res.json({domo: doc});
+    return res.json({ domo: doc });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error editing speech' });
   }
-}
+};
 
 const makeDomo = async (req, res) => {
   if (!req.body.name || !req.body.age) {
@@ -44,7 +44,7 @@ const makeDomo = async (req, res) => {
   }
 
   if (!req.body.greeting) {
-    req.body.greeting = "Domo!";
+    req.body.greeting = 'Domo!';
   }
 
   const domoData = {

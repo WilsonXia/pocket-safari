@@ -7,7 +7,7 @@ const router = (app) => {
   app.post('/editSpeech', mid.requiresLogin, controllers.Domo.editSpeech);
   app.post('/editAnimal', mid.requiresLogin, controllers.Animal.editAnimal);
   app.post('/updateZoo', mid.requiresLogin, controllers.Zoo.updateZooAnimals);
-  
+
   app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
 

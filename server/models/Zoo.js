@@ -8,7 +8,7 @@ const ZooAnimalSchema = new mongoose.Schema({
   numCaught: {
     type: Number,
     default: 0,
-  }
+  },
 });
 
 const ZooSchema = new mongoose.Schema({

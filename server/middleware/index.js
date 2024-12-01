@@ -24,11 +24,11 @@ const requiresSecure = (req, res, next) => {
 
 const requiresAdmin = (req, res, next) => {
   // Redirect to App
-  if(!req.session.account.isAdmin){
+  if (!req.session.account.isAdmin) {
     return res.redirect('/maker');
   }
   return next();
-}
+};
 
 const bypassSecure = (req, res, next) => {
   next();
