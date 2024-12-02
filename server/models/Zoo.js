@@ -9,6 +9,11 @@ const ZooAnimalSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  // The rest of these will be set the moment it is acquired
+  name: {
+    type: String,
+    default: '???',
+  }
 });
 
 const ZooSchema = new mongoose.Schema({

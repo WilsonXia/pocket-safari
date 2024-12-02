@@ -9,7 +9,7 @@ const requiresLogin = (req, res, next) => {
 const requiresLogout = (req, res, next) => {
   // Redirect to Maker
   if (req.session.account) {
-    return res.redirect('/maker');
+    return res.redirect('/zoo');
   }
   return next();
 };
@@ -25,7 +25,7 @@ const requiresSecure = (req, res, next) => {
 const requiresAdmin = (req, res, next) => {
   // Redirect to App
   if (!req.session.account.isAdmin) {
-    return res.redirect('/maker');
+    return res.redirect('/zoo');
   }
   return next();
 };
