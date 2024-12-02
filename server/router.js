@@ -2,10 +2,8 @@ const controllers = require('./controllers');
 const mid = require('./middleware');
 
 const router = (app) => {
-  app.get('/getDomos', mid.requiresLogin, controllers.Domo.getDomos);
   app.get('/getAnimals', mid.requiresLogin, controllers.Animal.getAnimals);
   app.get('/getZoo', mid.requiresLogin, controllers.Zoo.getZoo);
-  app.post('/editSpeech', mid.requiresLogin, controllers.Domo.editSpeech);
   app.post('/editAnimal', mid.requiresLogin, controllers.Animal.editAnimal);
   app.post('/addZooAnimal', mid.requiresLogin, controllers.Zoo.addZooAnimal);
 
