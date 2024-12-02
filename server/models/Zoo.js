@@ -13,7 +13,7 @@ const ZooAnimalSchema = new mongoose.Schema({
   name: {
     type: String,
     default: '???',
-  }
+  },
 });
 
 const ZooSchema = new mongoose.Schema({
