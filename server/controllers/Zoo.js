@@ -1,3 +1,4 @@
+const { random } = require('underscore');
 const models = require('../models');
 
 const { Zoo, Animal } = models;
@@ -7,8 +8,8 @@ const zooPage = (req, res) => res.render('zoo');
 const getZoo = async (req, res) => {
   try {
     const query = { userID: req.session.account._id };
-    const docs = await Zoo.find(query).lean().exec();
-    return res.json({ zoo: docs });
+    const docs = await Zoo.findOne(query).lean().exec();
+    return res.status(200).json({ zoo: docs });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error retrieving documents!' });
@@ -63,13 +64,16 @@ const addZooAnimal = async (req, res) => {
   // to increment the zoo's animal count
   // const body = req.body.foundAnimals
   try {
-    const animalDoc = Animal.findOne({}).lean().exec();
-    const query = { animals: { animalID: animalDoc._id } };
-    const docs = await Zoo.findOneAndUpdate(
-      query,
-      { $inc: { 'animals.$.numCaught': 1 } },
-      { returnDocument: 'after' },
-    ).lean().exec();
+    const foundAnimals = await Animal.find({}).lean().exec();
+    const chosenAnimal = foundAnimals[random(foundAnimals.length - 1)];
+    const query = {
+      userID: req.session.account._id,
+    };
+    const docs = await Zoo.findOne(query).exec();
+    // For each foundAnimal, find it in the docs and increment the caught number.
+    docs.animals.find((a) => a.animalID === chosenAnimal._id.toString())
+      .numCaught += 1;
+    await docs.save();
     return res.json({ zoo: docs });
   } catch (err) {
     console.log(err);
