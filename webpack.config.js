@@ -5,6 +5,7 @@ module.exports = {
         login: './client/login.jsx',
         animal: './client/animal.jsx',
         zoo: './client/zoo.jsx',
+        settings: './client/settings.jsx',
     },
     module: {
         rules: [

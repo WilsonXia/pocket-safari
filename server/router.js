@@ -17,6 +17,11 @@ const router = (app) => {
   app.get('/animal', mid.requiresLogin, mid.requiresAdmin, controllers.Animal.animalPage);
   app.post('/animal', mid.requiresLogin, mid.requiresAdmin, controllers.Animal.makeAnimal);
 
+  app.get('/settings', mid.requiresLogin, controllers.Account.settingsPage);
+  app.post('/changePass', mid.requiresLogin, controllers.Account.changePass);
+  app.get('/admin', mid.requiresLogin, controllers.Account.getAdmin);
+  app.post('/admin', mid.requiresLogin, controllers.Account.toggleAdmin);
+
   app.get('/zoo', mid.requiresLogin, controllers.Zoo.zooPage);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
