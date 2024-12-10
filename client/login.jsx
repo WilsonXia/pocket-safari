@@ -54,7 +54,7 @@ const LoginWindow = (props) => {
             <label htmlFor="username">Username: </label>
             <input type="text" id="user" name="username" placeholder="username"/>
             <label htmlFor="password">Password: </label>
-            <input type="text" id="pass" name='pass' placeholder='password' />
+            <input type="password" id="pass" name='pass' placeholder='password' />
             <input className='formSubmit' type='submit' value="Sign In" />
         </form>
     )
@@ -71,9 +71,9 @@ const SignupWindow = (props) => {
             <label htmlFor="username">Username: </label>
             <input type="text" id="user" name="username" placeholder="username"/>
             <label htmlFor="pass">Password: </label>
-            <input type="text" id="pass" name='pass' placeholder='password' />
+            <input type="password" id="pass" name='pass' placeholder='password' />
             <label htmlFor="pass">Password: </label>
-            <input type="text" id="pass2" name='pass2' placeholder='retype password' />
+            <input type="password" id="pass2" name='pass2' placeholder='retype password' />
             <input className='formSubmit' type='submit' value="Sign In" />
         </form>
     )
@@ -84,6 +84,8 @@ const init = () => {
     const signupButton = document.getElementById('signupButton');
 
     const root = createRoot(document.getElementById('content'));
+    // Default state
+    root.render(<LoginWindow/>);
 
     loginButton.addEventListener('click', (e) => {
         e.preventDefault();

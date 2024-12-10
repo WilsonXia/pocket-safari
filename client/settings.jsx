@@ -39,9 +39,9 @@ const ChangePasswordForm = () => {
             method="POST"
         >
             <label htmlFor="password">Current Password: </label>
-            <input type="text" id="currPass" name="password" />
+            <input type="password" id="currPass" name="password" />
             <label htmlFor="newPassword">New Password: </label>
-            <input type="text" id="newPass" name='newPassword' />
+            <input type="password" id="newPass" name='newPassword' />
             <input className='formSubmit' type='submit' value="Submit" />
         </form>
     );

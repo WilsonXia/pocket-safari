@@ -1,3 +1,5 @@
+const Zoo = require('../controllers/Zoo.js');
+
 const requiresLogin = (req, res, next) => {
   // Redirect to Login
   if (!req.session.account) {
@@ -34,9 +36,17 @@ const bypassSecure = (req, res, next) => {
   next();
 };
 
-module.exports.requiresLogin = requiresLogin;
-module.exports.requiresLogout = requiresLogout;
-module.exports.requiresAdmin = requiresAdmin;
+const updateNewAnimals = async (req, res, next) => {
+  await Zoo.updateZooAnimals(req.session.account._id);
+  next();
+};
+
+module.exports = {
+  requiresLogin,
+  requiresLogout,
+  requiresAdmin,
+  updateNewAnimals,
+};
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.requiresSecure = requiresSecure;

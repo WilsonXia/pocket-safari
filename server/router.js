@@ -14,7 +14,7 @@ const router = (app) => {
 
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
 
-  app.get('/animal', mid.requiresLogin, mid.requiresAdmin, controllers.Animal.animalPage);
+  app.get('/animal', mid.requiresLogin, mid.requiresAdmin, mid.updateNewAnimals, controllers.Animal.animalPage);
   app.post('/animal', mid.requiresLogin, mid.requiresAdmin, controllers.Animal.makeAnimal);
 
   app.get('/settings', mid.requiresLogin, controllers.Account.settingsPage);
@@ -22,7 +22,9 @@ const router = (app) => {
   app.get('/admin', mid.requiresLogin, controllers.Account.getAdmin);
   app.post('/admin', mid.requiresLogin, controllers.Account.toggleAdmin);
 
-  app.get('/zoo', mid.requiresLogin, controllers.Zoo.zooPage);
+  app.get('/zoo', mid.requiresLogin, mid.updateNewAnimals, controllers.Zoo.zooPage);
+
+  app.get('/game', mid.requiresLogin, mid.updateNewAnimals, controllers.Game);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
