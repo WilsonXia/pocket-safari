@@ -81,16 +81,19 @@ const changePass = async (req, res) => {
   try {
     const newHash = await Account.generateHash(newPass);
     // Try and authenticate with the current password
-    return Account.authenticate(req.session.account.username, currPass, async (err, account) => {
-      if (err || !account) {
-        return res.status(401).json({ error: 'Wrong password!' });
-      }
-      // newHash => account password
-      account.password = newHash;
-      // save
-      await account.save();
-      return res.json({ message: 'Password successfully changed' });
-    });
+    return Account.changePass(
+      req.session.account.username,
+      currPass,
+      newHash,
+      async (err, account) => {
+        if (err || !account) {
+          return res.status(401).json({ error: 'Wrong password!' });
+        }
+        // Password worked!
+        req.session.account = Account.toAPI(account);
+        return res.json({ message: 'Password successfully changed.' });
+      },
+    );
   } catch (err) {
     console.log(err);
     if (err.code === 11000) {
@@ -98,20 +101,20 @@ const changePass = async (req, res) => {
     }
     return res.status(500).json({ error: 'An error occured!' });
   }
-}
+};
 
 const getAdmin = async (req, res) => {
   // Return bool
   try {
     // Fetch for the Account
     const doc = await Account.findOne({ username: req.session.account.username })
-    .lean().exec();
-    return res.status(200).json({isAdmin: doc.isAdmin});
+      .lean().exec();
+    return res.status(200).json({ isAdmin: doc.isAdmin });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'An error has occured!' });
   }
-}
+};
 
 const toggleAdmin = async (req, res) => {
   // Get the body
@@ -119,15 +122,18 @@ const toggleAdmin = async (req, res) => {
   // Try Catch, get current Account and change admin accordingly
   try {
     // Fetch for the Account
-    await Account.findOneAndUpdate({ username: req.session.account.username },
-      { $set: { isAdmin } }
+    const doc = await Account.findOneAndUpdate(
+      { username: req.session.account.username },
+      { $set: { isAdmin } },
+      { returnDocument: 'after' },
     ).lean().exec();
-    return res.status(200).json({message: 'Admin access changed'});
+    req.session.account = Account.toAPI(doc);
+    return res.status(200).json({ message: 'Admin access changed' });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'An error has occured!' });
   }
-}
+};
 
 module.exports = {
   loginPage,

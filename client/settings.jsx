@@ -1,6 +1,6 @@
 const helper = require('./helper.js');
 const React = require('react');
-const {useEffect, useState} = React;
+const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
 const handleChangePass = (e) => {
@@ -16,7 +16,7 @@ const handleChangePass = (e) => {
     } else if (currentPass === newPass) {
         helper.handleError('Password must not match!');
         return false;
-      }
+    }
     helper.sendPost(e.target.action, { currentPass, newPass });
     return false;
 }
@@ -26,7 +26,7 @@ const handleToggleAdmin = (e) => {
     // Receive checkbox checked
     const isAdminCheck = document.getElementById('cb-admin').checked;
     // Post bool
-    helper.sendPost('/admin', {isAdmin: isAdminCheck});
+    helper.sendPost('/admin', { isAdmin: isAdminCheck });
     return false;
 }
 
@@ -48,33 +48,18 @@ const ChangePasswordForm = () => {
 }
 
 const ToggleAdminForm = (props) => {
-    const [isAdmin, setIsAdmin] = useState(props.animals);
-
-    useEffect(() => {
-        const checkAdminFromServer = async () => {
-            const response = await fetch('/admin');
-            const data = await response.json();
-            setIsAdmin(data.isAdmin);
-        };
-        checkAdminFromServer();
-    });
-
-    let checkbox;
-    if(isAdmin){
-        checkbox = (<input type="checkbox" name="cb-admin" id="cb-admin" checked/>);
-    } else {
-        checkbox = (<input type="checkbox" name="cb-admin" id="cb-admin"/>);
-    }
-
     return (
         <form id="toggleAdminForm"
             name="toggleAdminForm"
-            onSubmit={handleToggleAdmin}
+            onSubmit={(e) => {
+                handleToggleAdmin(e, props.triggerReload);
+            }
+            }
             action="/toggleAdminForm"
             method="POST"
         >
             <label htmlFor="cb-admin">Is Admin</label>
-            {checkbox}
+            <input type="checkbox" name="cb-admin" id="cb-admin" />
             <input className='formSubmit' type="submit" value="Submit" />
         </form>
     );
@@ -83,8 +68,8 @@ const ToggleAdminForm = (props) => {
 const Content = () => {
     return (
         <div id='settings'>
-            <ChangePasswordForm/>
-            <ToggleAdminForm/>
+            <ChangePasswordForm />
+            <ToggleAdminForm />
         </div>
     );
 }
@@ -92,7 +77,7 @@ const Content = () => {
 const init = () => {
     // trigger on load
     const root = createRoot(document.getElementById('content'));
-    root.render(<Content/>);
+    root.render(<Content />);
 }
 
 window.onload = init;
