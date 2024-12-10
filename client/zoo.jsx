@@ -12,10 +12,15 @@ const handleAddZooAnimal = (e, handler) => {
 
 const AddZooAnimalButton = (props) => {
     return (
-        <button
+        <div>
+            <button
             id='btn-addZooAnimal'
             onClick={(e)=>handleAddZooAnimal(e, props.triggerReload)} 
             method='POST'>Obtain Animal</button>
+            <a href="/game"><button
+            id='btn-addZooAnimal'
+            >Start Game</button></a>
+        </div>
     );
 }
 

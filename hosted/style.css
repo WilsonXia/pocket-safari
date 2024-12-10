@@ -6,6 +6,21 @@ html, body {
     overflow-x: hidden;
 }
 
+#gameGrid {
+    display: grid;
+    margin: 2rem;
+    height: 400px;
+    width: 400px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tile {
+    border-radius: 5px;
+    border: black 1px solid;
+    padding: 1rem;
+    background-color: #55acee;
+}
+
 #logo {
     height: 40px;
     width: 40;

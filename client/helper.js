@@ -1,3 +1,5 @@
+const { random } = require("underscore");
+
 const handleError = (message) => {
     document.getElementById('errorMessage').textContent = message;
     document.getElementById('domoMessage').classList.remove('hidden');
@@ -5,6 +7,18 @@ const handleError = (message) => {
 
 const hideError = () => {
     document.getElementById('domoMessage').classList.add('hidden');
+}
+
+const chooseRandom = (array) => {
+    return array[random(array.length - 1)];
+}
+
+const copyArray = (array) => {
+    let copy = [];
+    for(let i = 0; i < array.length; i++){
+        copy[i] = array[i];
+    }
+    return copy;
 }
 
 /* Sends post requests to the server using fetch. Will look for various
@@ -39,5 +53,7 @@ const sendPost = async (url, data, handler) => {
 module.exports = {
     hideError,
     handleError,
-    sendPost
+    sendPost,
+    chooseRandom,
+    copyArray
 }
