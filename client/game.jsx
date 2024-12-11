@@ -28,7 +28,7 @@ const openAd = () => {
     results.classList.add('hidden');
     popupAd.classList.remove('hidden');
 
-    window.setTimeout(()=>{
+    window.setTimeout(() => {
         const exitAdBtn = document.getElementById('btn-exitAd');
         exitAdBtn.classList.remove('hidden');
     }, 2000)
@@ -37,8 +37,8 @@ const openAd = () => {
 // Components
 const TryCounter = (props) => {
     return (
-        <div id='tryCounter'>
-            <p>Tries: {props.tries}</p>
+        <div id='tryCounter' className='box'>
+            <h2 className='has-text-centered content is-size-4'>Tries: {props.tries}</h2>
         </div>
     );
 }
@@ -51,11 +51,11 @@ const GameGrid = (props) => {
 
     let tiles = [];
     for (let i = 0; i < props.gridSize; i++) {
-        let newTile = <div className="tile" id={i}>{i + 1}</div>;
+        let newTile = <div className="tile" id={i}></div>;
         // Create tiles, allow interaction for Hiding Spots
         const check = props.hidingSpots.find(spot => spot === i);
         if (check || check === 0) {
-            newTile = <div className="tile hidingSpot" onClick={tileClick} id={i}>{i + 1}</div>;
+            newTile = <div className="tile hidingSpot" onClick={tileClick} id={i}></div>;
         }
         tiles.push(newTile);
     }
@@ -79,7 +79,7 @@ const FoundAnimalsList = (props) => {
     let foundList = props.foundAnimals.map(
         anim => {
             return (<li>
-                <p>{anim.name}</p>
+                <p className='animalName'>{anim.name}</p>
             </li>);
         }
     );
@@ -91,11 +91,13 @@ const FoundAnimalsList = (props) => {
 
 const PopupAd = () => {
     return (
-        <div id='popupAd' className='hidden'>
-            <h1>This is an Advertisement.</h1>
-            <button id='btn-exitAd' className='hidden' onClick={closeAd}>
-                Close
-            </button>
+        <div id='popupAd' className='hidden section has-background-primary endScreenScreen'>
+            <div className='flexColumnCenter'>
+                <h2 className='has-text-centered title is-size-3'>This is an Advertisement</h2>
+                <button id='btn-exitAd' className='hidden button' onClick={closeAd}>
+                    Close
+                </button>
+            </div>
         </div>
     )
 }
@@ -103,21 +105,25 @@ const PopupAd = () => {
 const EndScreen = (props) => {
     return (
         <div id='endScreen' className='hidden'>
-            <div id='results'>
-                <h2>Excursion Complete!</h2>
-                <section>
-                    <p>You found: </p>
-                    <FoundAnimalsList foundAnimals={props.foundAnimals} />
-                </section>
-                <section id='profit-model'>
-                    <p>Want one more try?</p>
-                    <button id='btn-viewAd' onClick={openAd}>
-                        View Ad
-                    </button>
-                </section>
-                <a href="/zoo"><button>Return to Zoo</button></a>
+            <div className='is-flex is-justify-content-center is-align-items-center'>
+                <div id='results' className='section has-background-primary endScreenScreen'>
+                    <div className='flexColumnCenter'>
+                        <h2 className='has-text-centered title is-size-3'>Excursion Complete!</h2>
+                        <section className='flexColumnCenter'>
+                            <p className='content'>You found: </p>
+                            <FoundAnimalsList foundAnimals={props.foundAnimals} />
+                        </section>
+                        <section id='profit-model' className='section flexColumnCenter'>
+                            <p className='content'>Want one more try?</p>
+                            <button id='btn-viewAd' className='button' onClick={openAd}>
+                                View Ad
+                            </button>
+                        </section>
+                        <a href="/zoo"><button className='button'>Return to Zoo</button></a>
+                    </div>
+                </div>
+                <PopupAd />
             </div>
-            <PopupAd/>
         </div>
     )
 }
@@ -126,8 +132,7 @@ const GameScreen = (props) => {
     const [tries, setTries] = useState(Game.tries);
 
     return (
-        <div id='gameScreen'>
-            <h1>Pick a spot!</h1>
+        <div id='gameScreen' className='section is-flex is-justify-content-center is-align-items-center'>
             <TryCounter tries={tries} />
             <GameGrid setTries={setTries} setAnimals={props.setFoundAnimals} gridSize={Game.gridSize * Game.gridSize} hidingSpots={Game.hidingSpots} />
         </div>
@@ -139,15 +144,15 @@ const App = () => {
 
     return (
         <div id='screens'>
-            <GameScreen setFoundAnimals={setFoundAnimals}/>
-            <EndScreen foundAnimals={foundAnimals}/>
+            <h2 className='has-text-centered title is-size-3 mt-4'>Pick a spot!</h2>
+            <GameScreen setFoundAnimals={setFoundAnimals} />
+            <EndScreen foundAnimals={foundAnimals} />
         </div>
     );
 }
 
 const init = async () => {
     await Game.initGame();
-
     const root = createRoot(document.getElementById('game'));
     root.render(<App />);
 }

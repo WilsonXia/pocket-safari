@@ -18,6 +18,9 @@ const handleChangePass = (e) => {
         return false;
     }
     helper.sendPost(e.target.action, { currentPass, newPass });
+    // Reset changes
+    document.getElementById('currPass').value = '';
+    document.getElementById('newPass').value = '';
     return false;
 }
 
@@ -37,12 +40,26 @@ const ChangePasswordForm = () => {
             onSubmit={handleChangePass}
             action="/changePass"
             method="POST"
+            className="is-flex-direction-column is-justify-content-center has-background-primary p-4"
         >
-            <label htmlFor="password">Current Password: </label>
-            <input type="password" id="currPass" name="password" />
-            <label htmlFor="newPassword">New Password: </label>
-            <input type="password" id="newPass" name='newPassword' />
-            <input className='formSubmit' type='submit' value="Submit" />
+            <h2 className='has-text-centered title is-size-4'>Change Password Form</h2>
+            <div className="field">
+                <label htmlFor="password">Current Password: </label>
+                <div className="control">
+                    <input className="input" type="password" id="currPass" name="password" />
+                </div>
+            </div>
+            <div className="field">
+                <label htmlFor="newPassword">New Password: </label>
+                <div className="control">
+                    <input className="input" type="password" id="newPass" name='newPassword' />
+                </div>
+            </div>
+            <div className="field">
+                <div className="control is-flex is-justify-content-center">
+                    <input className='button formSubmit' type='submit' value="Submit" />
+                </div>
+            </div>
         </form>
     );
 }
@@ -57,10 +74,21 @@ const ToggleAdminForm = (props) => {
             }
             action="/toggleAdminForm"
             method="POST"
+            className="is-flex-direction-column is-justify-content-center has-background-primary p-4"
         >
-            <label htmlFor="cb-admin">Is Admin</label>
-            <input type="checkbox" name="cb-admin" id="cb-admin" />
-            <input className='formSubmit' type="submit" value="Submit" />
+            <h2 className='has-text-centered title is-size-4'>Toggle Admin</h2>
+            <div className="field">
+                <label htmlFor="cb-admin">Is Admin</label>
+                <div className="control">
+                    <input type="checkbox" name="cb-admin" id="cb-admin" />
+                </div>
+            </div>
+
+            <div className="field">
+                <div className="control is-flex is-justify-content-center">
+                    <input className='button formSubmit' type='submit' value="Submit" />
+                </div>
+            </div>
         </form>
     );
 }

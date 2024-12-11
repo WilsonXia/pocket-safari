@@ -14,6 +14,13 @@ const ZooAnimalSchema = new mongoose.Schema({
     type: String,
     default: '???',
   },
+  description: {
+    type: String,
+    default: 'Not Yet Found',
+  },
+  rarity: {
+    type: Number,
+  }
 });
 
 const ZooSchema = new mongoose.Schema({

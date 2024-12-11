@@ -34,7 +34,19 @@ const handleAnimalEdit = (e, id, onAnimalAdded) => {
     }
 
     helper.sendPost(e.target.action, { animalID, rarity, description }, onAnimalAdded);
+    // Refresh changes
+    e.target.querySelector('#animalDescription').value = '';
+    e.target.querySelector('#animalRarity').value = '';
     return false;
+}
+
+const toggleEditFormView = (e) => {
+    let editForm = e.target.parentNode.parentNode.querySelector('#editFormHolder');
+    if (editForm.classList.contains('hidden')) {
+        editForm.classList.remove('hidden');
+    } else {
+        editForm.classList.add('hidden');
+    }
 }
 
 const AnimalForm = (props) => {
@@ -44,23 +56,39 @@ const AnimalForm = (props) => {
             name="animalForm"
             action="/animal"
             method="POST"
-            className="animalForm"
+            className="is-flex-direction-column is-justify-content-center has-background-primary p-4 animalForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input type="text" id="animalName" name="name" placeholder="Animal Name" />
-            <label htmlFor="rarity">Rarity: </label>
-            <select name="rarity" id="animalRarity">
-                <option value=""></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            <label htmlFor="description">Description: </label>
-            <input type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
-
-            <input className='makeAnimalSubmit' type='submit' value="Make Animal" />
+            <h2 className='has-text-centered title is-size-4'>Create New Animal</h2>
+            <div className="field">
+                <label htmlFor="name">Name: </label>
+                <div className="control">
+                    <input className='input' type="text" id="animalName" name="name" placeholder="Animal Name" />
+                </div>
+            </div>
+            <div className="field">
+                <label htmlFor="rarity">Rarity: </label>
+                <div className="control">
+                    <select className='select' name="rarity" id="animalRarity">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div className="field">
+                <label htmlFor="description">Description: </label>
+                <div className="control">
+                    <input className='input' type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
+                </div>
+            </div>
+            <div className="field">
+                <div className="control is-flex is-justify-content-center">
+                    <input className='button formSubmit' type='submit' value="Make Animal" />
+                </div>
+            </div>
         </form>
     )
 }
@@ -73,21 +101,31 @@ const EditAnimalForm = (props) => {
             name='animalForm'
             action='/editAnimal'
             method='POST'
-            className='animalForm'
+            className='animalForm is-flex-direction-column is-justify-content-center has-background-primary p-4'
         >
-            <label htmlFor="rarity">New Rarity: </label>
-            <select name="rarity" id="animalRarity">
-                <option value=""></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-            
-            <label htmlFor="description">New Description: </label>
-            <input type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
-            <input type='submit' value="Submit" />
+            <div className="field">
+                <label htmlFor="rarity">New Rarity</label>
+                <div className="control">
+                    <select className='select' name="rarity" id="animalRarity">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <label htmlFor="description">New Description</label>
+                <div className="control">
+                    <input className='input' type="text" id="animalDescription" name="description" placeholder="Enter a Description" />
+                </div>
+            </div>
+
+            <div className="field">
+                <div className="control is-flex is-justify-content-center">
+                    <input className='button formSubmit' type='submit' value="Submit Changes" />
+                </div>
+            </div>
         </form>
     );
 }
@@ -106,8 +144,11 @@ const AnimalList = (props) => {
 
     if (animals.length === 0) {
         return (
-            <div className='animalList'>
-                <h3 className='emptyAnimals'>No Animals Yet!</h3>
+            <div>
+                <h2 className='has-text-centered title is-size-4'>All Animals</h2>
+                <div className='animalList'>
+                    <h3 className='emptyAnimals'>No Animals Yet!</h3>
+                </div>
             </div>
         );
     }
@@ -115,11 +156,13 @@ const AnimalList = (props) => {
     const animalNodes = animals.map(animal => {
         return (
             <div key={animal.id} className='animal'>
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' />
+                {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' /> */}
                 <h3 className='animalName'>Name: {animal.name}</h3>
                 <h3 className='animalRarity'>Rarity: {animal.rarity}</h3>
                 <h3 className='animalDescription'>"{animal.description}"</h3>
-                <div>
+                <a onClick={toggleEditFormView}><h2 className='has-text-centered has-background-primary'>Edit</h2></a>
+
+                <div id='editFormHolder' className='hidden'>
                     <EditAnimalForm animalID={animal._id} triggerReload={props.triggerReload} />
                 </div>
             </div>
@@ -127,8 +170,11 @@ const AnimalList = (props) => {
     });
 
     return (
-        <div className='animalList'>
-            {animalNodes}
+        <div>
+            <h2 className='has-text-centered title is-size-4'>All Animals</h2>
+            <div className='animalList'>
+                {animalNodes}
+            </div>
         </div>
     );
 }
@@ -138,7 +184,7 @@ const App = () => {
 
     return (
         <div>
-            <div id='makeAnimal'>
+            <div id='makeAnimal' className='section is-flex is-justify-content-center'>
                 <AnimalForm triggerReload={() => setReloadAnimals(!reloadAnimals)} />
             </div>
             <div id='animals'>

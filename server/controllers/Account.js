@@ -128,7 +128,7 @@ const toggleAdmin = async (req, res) => {
       { returnDocument: 'after' },
     ).lean().exec();
     req.session.account = Account.toAPI(doc);
-    return res.status(200).json({ message: 'Admin access changed' });
+    return res.status(200).json({ message: `Admin access set to:  ${isAdmin}` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'An error has occured!' });

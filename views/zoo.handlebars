@@ -1,26 +1,32 @@
 <html lang="en">
+
 <head>
-  <meta charset="utf-8"/>
+  <meta charset="utf-8" />
   <title>Zoo</title>
-  <link rel="shortcut icon" href="/assets/img/favicon.ico"/>
-  <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Chewy&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/main.css" />
 </head>
+
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/elephant.png" alt="elephant logo"/></a>
+  <nav><a href="/login"><img id="logo" src="/assets/img/elephant.png" alt="elephant logo" /></a>
     <div class="navlink"><a href="/animal">Animal</a></div>
     <div class="navlink"><a href="/settings">Settings</a></div>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
 
-  <section id="content">
+  <section id="content" class="section">
 
   </section>
 
-  <div id="errorBox" class='hidden'>
-    <img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3>
-    <img id="character" src="assets/img/parrot.png" alt="parrot"/>
-  </div>
+  <div id="errorBox" class='hidden card has-background-warning'>
+      <h3><span id="errorMessage"></span></h3>
+    </div>
   <script src="/assets/zooBundle.js"></script>
 </body>
+
 </html>

@@ -25,7 +25,7 @@ const updateZooAnimals = async (userID) => {
       if (!zooDoc.animals.find(
         (zooAnimal) => zooAnimal.animalID === baseAnimal._id.toString(),
       )) {
-        zooDoc.animals.push({ animalID: baseAnimal._id, name: baseAnimal.name });
+        zooDoc.animals.push({ animalID: baseAnimal._id, rarity: baseAnimal.rarity, description: 'Not Found yet!' });
       }
     });
     await zooDoc.save(); // update via save, must be a doc
@@ -72,8 +72,10 @@ const addZooAnimal = async (req, res) => {
     // For each foundAnimal, find it in the docs and increment the caught number.
     foundAnimals.forEach(
       (found) => {
-        docs.animals.find((a) => a.animalID === found._id.toString())
-          .numCaught += 1;
+        let currAnimal = docs.animals.find((a) => a.animalID === found._id.toString());
+        currAnimal.numCaught += 1;
+        currAnimal.name = found.name;
+        currAnimal.description = found.description;
       },
     );
     await docs.save();

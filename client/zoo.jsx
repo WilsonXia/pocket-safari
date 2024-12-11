@@ -10,11 +10,11 @@ const handleAddZooAnimal = (e, handler) => {
     // return false;
 }
 
-const AddZooAnimalButton = () => {
+const StartGameButton = () => {
     return (
-        <div>
+        <div className='is-flex is-justify-content-center'>
             <a href="/game"><button
-            id='btn-addZooAnimal'
+                id='btn-addZooAnimal' className='button'
             >Start Game</button></a>
         </div>
     );
@@ -27,7 +27,7 @@ const ZooAnimalList = (props) => {
         const loadAnimalsFromServer = async () => {
             const response = await fetch('/getZoo');
             const data = await response.json();
-            
+
             setAnimals(data.zoo.animals);
         };
         loadAnimalsFromServer();
@@ -42,17 +42,21 @@ const ZooAnimalList = (props) => {
 
     const animalNodes = animals.map(animal => {
         return (
-            <div key={animal._id} className='animal'>
-                <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' />
+            <div key={animal._id} className='animal container'>
+                {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' /> */}
                 <h3 className='animalName'>{animal.name}</h3>
                 <h3 className='animalCount'>Found: {animal.numCaught}</h3>
+                <h3 className='animalDesc'>{animal.description}</h3>
             </div>
         );
     });
 
     return (
-        <div className='animalList'>
-            {animalNodes}
+        <div id='animalContainer'>
+            <h2 className='title'>Animals</h2>
+            <div className='animalList'>
+                {animalNodes}
+            </div>
         </div>
     );
 }
@@ -63,9 +67,9 @@ const App = () => {
     // A small list to display all the zoo animals
     return (
         <div>
-            <h3>Zoo</h3>
-            <AddZooAnimalButton triggerReload={() => setReloadAnimals(!reloadAnimals)}/>
-            <ZooAnimalList animals={[]} reloadAnimals={reloadAnimals}/>
+            <h1 class="title has-text-centered">Zoo</h1>
+            <StartGameButton triggerReload={() => setReloadAnimals(!reloadAnimals)} />
+            <ZooAnimalList animals={[]} reloadAnimals={reloadAnimals} />
         </div>
     );
 }

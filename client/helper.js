@@ -5,9 +5,20 @@ const handleError = (message) => {
     document.getElementById('errorBox').classList.remove('hidden');
 };
 
+const handleMessage = (message) => {
+    document.getElementById('message').textContent = message;
+    document.getElementById('messageBox').classList.remove('hidden');
+};
+
 const hideError = () => {
     if(document.getElementById('errorBox')){
         document.getElementById('errorBox').classList.add('hidden');
+    }
+}
+
+const hideMessage = () => {
+    if(document.getElementById('messageBox')){
+        document.getElementById('messageBox').classList.add('hidden');
     }
 }
 
@@ -38,6 +49,10 @@ const sendPost = async (url, data, handler) => {
         handleError(result.error);
     }
 
+    if (result.message) {
+        handleMessage(result.message);
+    }
+
     if (handler) {
         console.log('Calling handler method...');
         handler(result);
@@ -46,7 +61,9 @@ const sendPost = async (url, data, handler) => {
 
 module.exports = {
     hideError,
+    hideMessage,
     handleError,
+    handleMessage,
     sendPost,
     chooseRandom,
 }

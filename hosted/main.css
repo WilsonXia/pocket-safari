@@ -1,14 +1,59 @@
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+body {
+  font-family: "Atma", system-ui;
+}
+
+.title {
+  font-family: "Chewy";
+}
+
+.animalName {
+  font-family: "Chewy";
+  font-size: 1.2em;
+}
+
+#user, #pass, #pass2 {
+  font-family: "Atma", system-ui;
+  text-align: center;
+  font-size: 1.1em;
+  width: 180px;
+  border-radius: 6px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+  font-family: "Atma", system-ui;
+  outline: none;
+  box-shadow: 0px 0px 1px 1px #55acee;
+}
+
+#errorBox {
+  position: fixed;
+  bottom: 10px;
+  height: 100px;
+  width: 300px;
+  margin-left: 1rem;
+  padding: 1rem;
+}
+
+#messageBox {
+  position: fixed;
+  bottom: 10px;
+  right: 0;
+  height: 100px;
+  width: 300px;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+#errorMessage, #message {
+  font-size: 1.2em;
+  font-weight: bold;
+  font-style: italic;
 }
 
 #gameGrid {
   display: grid;
-  margin: 2rem;
+  margin-left: 2rem;
+  margin-right: 7rem;
   height: 400px;
   width: 400px;
   grid-template-columns: 1fr 1fr 1fr;
@@ -18,11 +63,56 @@ html, body {
   border-radius: 5px;
   border: black 1px solid;
   padding: 1rem;
+}
+
+.hidingSpot {
   background-color: #55acee;
 }
 
 .hidingSpot:hover {
   background-color: #055694;
+}
+
+#tryCounter {
+  width: 5rem;
+}
+
+#endScreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+}
+
+.endScreenScreen {
+  position: fixed;
+  transform: translate(0, 75%);
+}
+
+.animalList {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 40px;
+  width: 100%;
+}
+
+.animal {
+  width: 100%;
+  height: 100%;
+}
+
+#makeAnimal {
+  padding: 1rem;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .searched {
@@ -70,20 +160,22 @@ nav:nth-child(1) {
   background-color: #66bdff;
 }
 
+.button {
+  font-family: "Atma", system-ui;
+}
+
+.flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .formSubmit {
-  transition: background-color 0.4s ease;
   display: block;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 14px;
+  transition: background-color 0.4s ease;
+  font-family: "Atma", system-ui;
   font-size: 1.2em;
-  width: 100px;
-  background-color: #55acee;
-  border-radius: 2px;
-  border-color: #66acee;
-  padding: 3px 0px;
-  color: white;
-  text-decoration: none;
 }
 
 .formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
@@ -95,31 +187,6 @@ nav:nth-child(1) {
   background-color: #338acc;
 }
 
-#user, #pass, #pass2 {
-  text-align: center;
-  font-size: 1.1em;
-  width: 180px;
-  border-radius: 6px;
-}
-
-#user:focus, #pass:focus, #pass2:focus {
-  outline: none;
-  box-shadow: 0px 0px 1px 1px #55acee;
-}
-
 .hidden {
-  display: none;
-}
-
-#speech {
-  height: 120px;
-  width: 250px;
-  z-index: 300;
-}
-
-#errorMessage {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: red;
-  font-style: italic;
+  display: none !important;
 }
