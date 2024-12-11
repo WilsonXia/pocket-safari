@@ -6,7 +6,9 @@ const handleError = (message) => {
 };
 
 const hideError = () => {
-    document.getElementById('domoMessage').classList.add('hidden');
+    if(document.getElementById('domoMessage')){
+        document.getElementById('domoMessage').classList.add('hidden');
+    }
 }
 
 const chooseRandom = (array) => {

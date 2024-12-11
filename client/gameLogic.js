@@ -1,5 +1,5 @@
 const { random } = require('underscore');
-const { chooseRandom } = require('./helper');
+const { chooseRandom, sendPost } = require('./helper');
 
 let grid = [];
 const gridSize = 3;
@@ -41,9 +41,11 @@ const coinFlip = () => {
 }
 
 const getRarity = (flips) => {
-    let sum = 0;
+    let sum = 1; // base rarity is 1
     for (let i = 0; i < flips; i++) {
-        sum += coinFlip();
+        if(coinFlip()){
+            sum++;
+        }
     }
     return sum;
 }
@@ -55,7 +57,10 @@ const pickAnimal = (animals, flips) => {
     if (filtered.length === 0) {
         filtered = animals.filter(animal => animal.rarity <= rarity);
     }
-    return chooseRandom(filtered);
+    const anim = chooseRandom(filtered);
+    // console.log(anim);
+    // console.log(filtered);
+    return anim;
 }
 
 const generateAnimals = async () => {
@@ -90,7 +95,7 @@ const matchAnimalsToSpot = () => {
     )
 }
 
-const inspectSpot = (element, callback) => {
+const inspectSpot = (element, setTries, setFound) => {
     // Check if we have tries left
     if(tries <= 0){
         console.log('out of tries');
@@ -113,13 +118,13 @@ const inspectSpot = (element, callback) => {
         // Found the animal
         foundAnimals.push(found.animal);
         console.log(`Found: ${found.animal.name}`);
+        setFound([...foundAnimals]);
     }
     // Reflect changes
     tries--;
     element.classList.add('searched');
     element.classList.remove('hidingSpot');
-    console.log(foundAnimals);
-    callback(tries);
+    setTries(tries);
     // Check if the game ended
     if(tries <= 0){
         endGame();
@@ -129,14 +134,17 @@ const inspectSpot = (element, callback) => {
 const extraTry = () => {
     // give 1 more try
     tries = 1;
+    foundAnimals = [];
 }
 
-const endGame = () => {
+const endGame = async () => {
+    console.log('The game has ended.');
+    // Post results
+    await sendPost('/addZooAnimal', {animals: foundAnimals});
     window.setTimeout(()=>{
-        console.log('The game has ended.');
         // show the endScreen
         document.getElementById('endScreen').classList.remove('hidden');
-    }, 3000)
+    }, 1000)
 }
 
 const initGame = async () => {

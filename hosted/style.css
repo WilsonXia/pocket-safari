@@ -81,42 +81,6 @@ nav:nth-child(1) {
     border-top-right-radius: 4px;
 }
 
-.domoForm label {
-    display: inline-block;
-    width: 75px;
-    margin-left: 10px;
-    font-size: 1.2em;
-    float: left;
-    color: white;
-}
-
-.domoForm input[type=text] {
-    float:left;
-}
-
-.domoForm input[type=number] {
-    float:left;
-}
-
-.makeDomoSubmit {
-    transition: background-color 0.4s ease;
-    display: inline;
-    width: 90px;
-    background-color: #55acee;
-    border-radius: 2px;
-    color: white;
-    text-decoration: none;
-}
-
-.makeDomoSubmit:link, .makeDomoSubmit:visited, .makeDomoSubmit:hover, .makeDomoSubmit:active {
-    color: white;
-}
-
-.makeDomoSubmit:hover {
-    transition: background-color 0.4s ease;
-    background-color: #338acc;
-}
-
 .mainForm {
     height: 300px;
     width: 350px;

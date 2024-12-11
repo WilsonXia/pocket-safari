@@ -65,15 +65,18 @@ const addZooAnimal = async (req, res) => {
   // to increment the zoo's animal count
   // const body = req.body.foundAnimals
   try {
-    const foundAnimals = await Animal.find({}).lean().exec();
-    const chosenAnimal = foundAnimals[random(foundAnimals.length - 1)];
+    const foundAnimals = req.body.animals;
     const query = {
       userID: req.session.account._id,
     };
     const docs = await Zoo.findOne(query).exec();
     // For each foundAnimal, find it in the docs and increment the caught number.
-    docs.animals.find((a) => a.animalID === chosenAnimal._id.toString())
-      .numCaught += 1;
+    foundAnimals.forEach(
+      found => {
+        docs.animals.find((a) => a.animalID === found._id.toString())
+          .numCaught += 1;
+      }
+    );
     await docs.save();
     return res.json({ zoo: docs });
   } catch (err) {

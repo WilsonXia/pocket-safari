@@ -46,7 +46,7 @@ const TryCounter = (props) => {
 const GameGrid = (props) => {
     const tileClick = (e) => {
         // Tell the Game to Inspect that tile
-        Game.inspectSpot(e.target, props.setTries);
+        Game.inspectSpot(e.target, props.setTries, props.setAnimals);
     }
 
     let tiles = [];
@@ -101,19 +101,13 @@ const PopupAd = () => {
 }
 
 const EndScreen = (props) => {
-    const [foundAnimals, setFoundAnimals] = useState([]);
-
-    useEffect(() => {
-        setFoundAnimals(Game.foundAnimals);
-    }, [])
-
     return (
         <div id='endScreen' className='hidden'>
             <div id='results'>
                 <h2>Excursion Complete!</h2>
                 <section>
                     <p>You found: </p>
-                    <FoundAnimalsList foundAnimals={foundAnimals} />
+                    <FoundAnimalsList foundAnimals={props.foundAnimals} />
                 </section>
                 <section id='profit-model'>
                     <p>Want one more try?</p>
@@ -128,28 +122,25 @@ const EndScreen = (props) => {
     )
 }
 
-const GameScreen = () => {
-    const [reloadState, setReloadState] = useState(false);
-    const [tries, setTries] = useState(0);
-
-    useEffect(() => {
-        setTries(Game.tries);
-    }, []); // Dependency, will trigger effect on change
+const GameScreen = (props) => {
+    const [tries, setTries] = useState(Game.tries);
 
     return (
         <div id='gameScreen'>
             <h1>Pick a spot!</h1>
             <TryCounter tries={tries} />
-            <GameGrid setTries={setTries} gridSize={Game.gridSize * Game.gridSize} hidingSpots={Game.hidingSpots} />
+            <GameGrid setTries={setTries} setAnimals={props.setFoundAnimals} gridSize={Game.gridSize * Game.gridSize} hidingSpots={Game.hidingSpots} />
         </div>
     );
 }
 
 const App = () => {
+    const [foundAnimals, setFoundAnimals] = useState([]);
+
     return (
         <div id='screens'>
-            <GameScreen/>
-            <EndScreen/>
+            <GameScreen setFoundAnimals={setFoundAnimals}/>
+            <EndScreen foundAnimals={foundAnimals}/>
         </div>
     );
 }
@@ -159,7 +150,6 @@ const init = async () => {
 
     const root = createRoot(document.getElementById('game'));
     root.render(<App />);
-    // root.render(<GameScreen />);
 }
 
 window.onload = init;
