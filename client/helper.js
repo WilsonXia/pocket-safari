@@ -8,6 +8,9 @@ const handleError = (message) => {
 const handleMessage = (message) => {
     document.getElementById('message').textContent = message;
     document.getElementById('messageBox').classList.remove('hidden');
+    window.setTimeout(()=>{
+        hideMessage();
+    }, 1200);
 };
 
 const hideError = () => {

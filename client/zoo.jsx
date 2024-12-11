@@ -45,6 +45,7 @@ const ZooAnimalList = (props) => {
             <div key={animal._id} className='animal container'>
                 {/* <img src="/assets/img/domoface.jpeg" alt="domo face" className='domoFace' /> */}
                 <h3 className='animalName'>{animal.name}</h3>
+                <h3 className='animalRarity'>Rarity: {animal.rarity}</h3>
                 <h3 className='animalCount'>Found: {animal.numCaught}</h3>
                 <h3 className='animalDesc'>{animal.description}</h3>
             </div>

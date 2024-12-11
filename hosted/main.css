@@ -93,8 +93,9 @@ body {
 .animalList {
   display: grid;
   padding: 1rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 40px;
+  row-gap: 40px;
   width: 100%;
 }
 

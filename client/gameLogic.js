@@ -1,5 +1,5 @@
 const { random } = require('underscore');
-const { chooseRandom, sendPost } = require('./helper');
+const { chooseRandom, sendPost, handleMessage, hideMessage } = require('./helper');
 
 let grid = [];
 const gridSize = 3;
@@ -108,17 +108,18 @@ const inspectSpot = (element, setTries, setFound) => {
     }
     // Continue with inspection
     const spot = parseInt(element.id, 10);
-    console.log(`tries: ${tries}`);
     // Find an animal in the spot
     let found = hiddenAnimals.find(a => a.spot === spot);
     // If not found, tell the user they found nothing.
     if(!found){
         console.log('Nothing found.');
+        handleMessage(`Nothing is there.`);
     } else {
         // Found the animal
         foundAnimals.push(found.animal);
         console.log(`Found: ${found.animal.name}`);
         setFound([...foundAnimals]);
+        handleMessage(`You found a ${found.animal.name}!`);
     }
     // Reflect changes
     tries--;
