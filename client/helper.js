@@ -2,12 +2,12 @@ const { random } = require("underscore");
 
 const handleError = (message) => {
     document.getElementById('errorMessage').textContent = message;
-    document.getElementById('domoMessage').classList.remove('hidden');
+    document.getElementById('errorBox').classList.remove('hidden');
 };
 
 const hideError = () => {
-    if(document.getElementById('domoMessage')){
-        document.getElementById('domoMessage').classList.add('hidden');
+    if(document.getElementById('errorBox')){
+        document.getElementById('errorBox').classList.add('hidden');
     }
 }
 
