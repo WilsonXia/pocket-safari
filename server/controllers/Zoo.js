@@ -1,4 +1,3 @@
-const { random } = require('underscore');
 const models = require('../models');
 
 const { Zoo, Animal } = models;
@@ -72,10 +71,10 @@ const addZooAnimal = async (req, res) => {
     const docs = await Zoo.findOne(query).exec();
     // For each foundAnimal, find it in the docs and increment the caught number.
     foundAnimals.forEach(
-      found => {
+      (found) => {
         docs.animals.find((a) => a.animalID === found._id.toString())
           .numCaught += 1;
-      }
+      },
     );
     await docs.save();
     return res.json({ zoo: docs });
