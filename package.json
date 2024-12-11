@@ -10,7 +10,9 @@
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\"",
-    "heroku-postbuild": "webpack"
+    "build": "gulp build",
+    "watch": "gulp watch",
+    "heroku-postbuild": "gulp herokuBuild"
   },
   "keywords": [
     "Node",
@@ -29,10 +31,14 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.29.1",
     "gulp": "^5.0.0",
+    "gulp-eslint-new": "^2.4.0",
+    "gulp-nodemon": "^2.5.0",
+    "gulp-sass": "^5.1.0",
     "loader": "^2.1.1",
     "nodemon": "^3.1.0",
     "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "webpack-stream": "^7.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
