@@ -1,50 +1,74 @@
 const helper = require('./helper.js');
+const Game = require('./gameLogic.js');
 const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
-const Game = require('./gameLogic.js');
 
 const closeAd = () => {
     const popupAd = document.getElementById('popupAd');
+    const gameScreen = document.getElementById('gameScreen');
+    const endScreen = document.getElementById('endScreen');
+    const results = document.getElementById('results');
     popupAd.classList.add('hidden');
+    endScreen.classList.add('hidden');
+    results.classList.remove('hidden');
+    // Reveal Game screen
+    gameScreen.classList.remove('hidden');
+    Game.extraTry();
 }
 
 const openAd = () => {
     const popupAd = document.getElementById('popupAd');
+    const gameScreen = document.getElementById('gameScreen');
+    const profitModel = document.getElementById('profit-model');
+    const results = document.getElementById('results');
+
+    profitModel.classList.add('hidden');
+    gameScreen.classList.add('hidden');
+    results.classList.add('hidden');
     popupAd.classList.remove('hidden');
+
+    window.setTimeout(()=>{
+        const exitAdBtn = document.getElementById('btn-exitAd');
+        exitAdBtn.classList.remove('hidden');
+    }, 2000)
 }
 
 // Components
+const TryCounter = (props) => {
+    return (
+        <div id='tryCounter'>
+            <p>Tries: {props.tries}</p>
+        </div>
+    );
+}
+
 const GameGrid = (props) => {
     const tileClick = (e) => {
         // Tell the Game to Inspect that tile
-        console.log(`${e.target.id} clicked!`);
+        Game.inspectSpot(e.target, props.setTries);
     }
 
     let tiles = [];
-    for(let i = 0; i < props.gridSize; i++){
-        let newTile = <div className="tile" id={i}>{i+1}</div>;
+    for (let i = 0; i < props.gridSize; i++) {
+        let newTile = <div className="tile" id={i}>{i + 1}</div>;
         // Create tiles, allow interaction for Hiding Spots
-        if(props.hidingSpots.find(spot => spot === i)){
-            newTile = <div className="tile" onClick={tileClick} id={i}>{i+1}</div>;
+        const check = props.hidingSpots.find(spot => spot === i);
+        if (check || check === 0) {
+            newTile = <div className="tile hidingSpot" onClick={tileClick} id={i}>{i + 1}</div>;
         }
         tiles.push(newTile);
     }
 
     return (
-        <div>
-            <h1>Pick a spot!</h1>
-            <div id='gameGrid'>
-                {tiles}
-            </div>
+        <div id='gameGrid'>
+            {tiles}
         </div>
     );
 }
 
 const FoundAnimalsList = (props) => {
-    const {found, setFound} = useState(props.foundAnimals);
-
-    if(found.length === 0){
+    if (props.foundAnimals.length === 0) {
         return (
             <div>
                 <p>Nothing...</p>
@@ -52,7 +76,7 @@ const FoundAnimalsList = (props) => {
         );
     }
 
-    let foundList = found.map(
+    let foundList = props.foundAnimals.map(
         anim => {
             return (<li>
                 <p>{anim.name}</p>
@@ -67,38 +91,75 @@ const FoundAnimalsList = (props) => {
 
 const PopupAd = () => {
     return (
-        <div id='popupAd'>
+        <div id='popupAd' className='hidden'>
             <h1>This is an Advertisement.</h1>
-            <button onClick={closeAd}>
+            <button id='btn-exitAd' className='hidden' onClick={closeAd}>
                 Close
             </button>
         </div>
     )
 }
 
-const EndScreen = () => {
+const EndScreen = (props) => {
+    const [foundAnimals, setFoundAnimals] = useState([]);
+
+    useEffect(() => {
+        setFoundAnimals(Game.foundAnimals);
+    }, [])
+
     return (
-        <div id='results'>
-            <h2>Excursion Complete!</h2>
-            <section>
-                <p>You found: </p>
-                <FoundAnimalsList/>
-            </section>
-            <section>
-                <p>Want one more try?</p>
-                <button id='btn-viewAd'>View Ad</button>
-            </section>
-            <button>Return to Zoo</button>
+        <div id='endScreen' className='hidden'>
+            <div id='results'>
+                <h2>Excursion Complete!</h2>
+                <section>
+                    <p>You found: </p>
+                    <FoundAnimalsList foundAnimals={foundAnimals} />
+                </section>
+                <section id='profit-model'>
+                    <p>Want one more try?</p>
+                    <button id='btn-viewAd' onClick={openAd}>
+                        View Ad
+                    </button>
+                </section>
+                <a href="/zoo"><button>Return to Zoo</button></a>
+            </div>
+            <PopupAd/>
         </div>
     )
 }
 
+const GameScreen = () => {
+    const [reloadState, setReloadState] = useState(false);
+    const [tries, setTries] = useState(0);
+
+    useEffect(() => {
+        setTries(Game.tries);
+    }, []); // Dependency, will trigger effect on change
+
+    return (
+        <div id='gameScreen'>
+            <h1>Pick a spot!</h1>
+            <TryCounter tries={tries} />
+            <GameGrid setTries={setTries} gridSize={Game.gridSize * Game.gridSize} hidingSpots={Game.hidingSpots} />
+        </div>
+    );
+}
+
+const App = () => {
+    return (
+        <div id='screens'>
+            <GameScreen/>
+            <EndScreen/>
+        </div>
+    );
+}
 
 const init = async () => {
     await Game.initGame();
-    const root = createRoot(document.getElementById('game'));
-    root.render(<GameGrid gridSize={Game.gridSize * Game.gridSize} hidingSpots={Game.hidingSpots}/>);
 
+    const root = createRoot(document.getElementById('game'));
+    root.render(<App />);
+    // root.render(<GameScreen />);
 }
 
 window.onload = init;

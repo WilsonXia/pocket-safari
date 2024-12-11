@@ -31,7 +31,7 @@ const ZooAnimalList = (props) => {
         const loadAnimalsFromServer = async () => {
             const response = await fetch('/getZoo');
             const data = await response.json();
-            console.log(data);
+            
             setAnimals(data.zoo.animals);
         };
         loadAnimalsFromServer();

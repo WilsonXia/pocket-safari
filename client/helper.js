@@ -13,14 +13,6 @@ const chooseRandom = (array) => {
     return array[random(array.length - 1)];
 }
 
-const copyArray = (array) => {
-    let copy = [];
-    for(let i = 0; i < array.length; i++){
-        copy[i] = array[i];
-    }
-    return copy;
-}
-
 /* Sends post requests to the server using fetch. Will look for various
    entries in the response JSON object, and will handle them appropriately.
 */
@@ -55,5 +47,4 @@ module.exports = {
     handleError,
     sendPost,
     chooseRandom,
-    copyArray
 }

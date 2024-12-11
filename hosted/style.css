@@ -21,6 +21,14 @@ html, body {
     background-color: #55acee;
 }
 
+.hidingSpot:hover {
+    background-color: #055694;
+}
+
+.searched {
+    background-color: #055694;
+}
+
 #logo {
     height: 40px;
     width: 40;

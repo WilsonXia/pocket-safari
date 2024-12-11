@@ -1,5 +1,5 @@
 const { random } = require('underscore');
-const { chooseRandom, copyArray } = require('./helper');
+const { chooseRandom } = require('./helper');
 
 let grid = [];
 const gridSize = 3;
@@ -7,9 +7,9 @@ const numOfAnimals = 3;
 
 let hiddenAnimals = [];
 let hidingSpots = [];
-let capturedAnimals = [];
+let foundAnimals = [];
 
-let tries = 0;
+let tries = 3;
 
 // Game Logic
 const setUpGrid = () => {
@@ -45,7 +45,6 @@ const getRarity = (flips) => {
     for (let i = 0; i < flips; i++) {
         sum += coinFlip();
     }
-    console.log(`Sum: ${sum}`);
     return sum;
 }
 
@@ -77,9 +76,6 @@ const generateAnimals = async () => {
 }
 
 const matchAnimalsToSpot = () => {
-    console.log('hiding spots before:');
-    console.log(hidingSpots);
-    // let spots = copyArray(hidingSpots);
     let spots = [...hidingSpots];
     hiddenAnimals = hiddenAnimals.map(
         animal => {
@@ -94,14 +90,58 @@ const matchAnimalsToSpot = () => {
     )
 }
 
-// const inspectSpot = (spot) => {
+const inspectSpot = (element, callback) => {
+    // Check if we have tries left
+    if(tries <= 0){
+        console.log('out of tries');
+        return;
+    }
+    // Check if the spot can be searched
+    if(element.classList.contains('searched')){
+        console.log('this has already been searched!');
+        return;
+    }
+    // Continue with inspection
+    const spot = parseInt(element.id, 10);
+    console.log(`tries: ${tries}`);
+    // Find an animal in the spot
+    let found = hiddenAnimals.find(a => a.spot === spot);
+    // If not found, tell the user they found nothing.
+    if(!found){
+        console.log('Nothing found.');
+    } else {
+        // Found the animal
+        foundAnimals.push(found.animal);
+        console.log(`Found: ${found.animal.name}`);
+    }
+    // Reflect changes
+    tries--;
+    element.classList.add('searched');
+    element.classList.remove('hidingSpot');
+    console.log(foundAnimals);
+    callback(tries);
+    // Check if the game ended
+    if(tries <= 0){
+        endGame();
+    }
+}
 
-//     if(hiddenAnimals.filter(anim => anim.spot === spot)){
-//         return 
-//     }
-// }
+const extraTry = () => {
+    // give 1 more try
+    tries = 1;
+}
+
+const endGame = () => {
+    window.setTimeout(()=>{
+        console.log('The game has ended.');
+        // show the endScreen
+        document.getElementById('endScreen').classList.remove('hidden');
+    }, 3000)
+}
 
 const initGame = async () => {
+    // Reset animals
+    foundAnimals = [];
     // Give 3 tries
     tries = 3;
     // Set up Grid
@@ -110,12 +150,16 @@ const initGame = async () => {
     await generateAnimals();
     // Match an animal to a hiding spot
     matchAnimalsToSpot();
+    console.log('Hidden Animals');
     console.log(hiddenAnimals);
-    console.log(hidingSpots);
 }
 
 module.exports = {
     initGame,
+    inspectSpot,
+    extraTry,
     gridSize,
     hidingSpots,
+    tries,
+    foundAnimals,
 }
