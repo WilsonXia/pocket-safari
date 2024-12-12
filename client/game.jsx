@@ -4,7 +4,10 @@ const React = require('react');
 const { useState, useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
+let adClosed = false;
+
 const closeAd = () => {
+    adClosed = true;
     const popupAd = document.getElementById('popupAd');
     const gameScreen = document.getElementById('gameScreen');
     const endScreen = document.getElementById('endScreen');
@@ -32,9 +35,11 @@ const openAd = () => {
         const exitAdBtn = document.getElementById('btn-exitAd');
         exitAdBtn.classList.remove('hide');
         exitAdBtn.classList.add('fadeIn');
-        console.log('If you have an ad-blocker, you might be experiencing a problem');
+        console.log('If you have an ad-blocker, please wait 5 seconds');
         window.setTimeout(()=>{
-            closeAd();
+            if(!adClosed){
+                closeAd();
+            }
         }, 5000)
     }, 2000)
 }
