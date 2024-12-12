@@ -32,6 +32,10 @@ const openAd = () => {
         const exitAdBtn = document.getElementById('btn-exitAd');
         exitAdBtn.classList.remove('hide');
         exitAdBtn.classList.add('fadeIn');
+        console.log('If you have an ad-blocker, you might be experiencing a problem');
+        window.setTimeout(()=>{
+            closeAd();
+        }, 5000)
     }, 2000)
 }
 
