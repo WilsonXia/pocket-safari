@@ -14,7 +14,10 @@
 
 <body>
   <nav><a href="/login"><img id="logo" src="/assets/img/elephant.png" alt="elephant logo" /></a>
-    <div class="navlink"><a href="/animal">Animal</a></div>
+    <div class="navlink"><a href="/zoo">Zoo</a></div>
+    {{#if isAdmin}}
+      <div class="navlink"><a href="/animal">Animal</a></div>
+    {{/if}}
     <div class="navlink"><a href="/settings">Settings</a></div>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>

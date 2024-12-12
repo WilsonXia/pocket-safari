@@ -58,8 +58,6 @@ const pickAnimal = (animals, flips) => {
         filtered = animals.filter(animal => animal.rarity <= rarity);
     }
     const anim = chooseRandom(filtered);
-    // console.log(anim);
-    // console.log(filtered);
     return anim;
 }
 
@@ -112,12 +110,12 @@ const inspectSpot = (element, setTries, setFound) => {
     let found = hiddenAnimals.find(a => a.spot === spot);
     // If not found, tell the user they found nothing.
     if(!found){
-        console.log('Nothing found.');
+        element.classList.add('hide');
         handleMessage(`Nothing is there.`);
     } else {
         // Found the animal
         foundAnimals.push(found.animal);
-        console.log(`Found: ${found.animal.name}`);
+        element.innerHTML = `<p class='has-text-centered'>${found.animal.name}</p>`;
         setFound([...foundAnimals]);
         handleMessage(`You found a ${found.animal.name}!`);
     }
@@ -139,13 +137,12 @@ const extraTry = () => {
 }
 
 const endGame = async () => {
-    handleMessage('Game Over!');
     // Post results
     await sendPost('/addZooAnimal', {animals: foundAnimals});
     window.setTimeout(()=>{
         // show the endScreen
+        handleMessage('Game Over!');
         document.getElementById('endScreen').classList.remove('hidden');
-        hideMessage();
     }, 1000)
 }
 
@@ -160,8 +157,7 @@ const initGame = async () => {
     await generateAnimals();
     // Match an animal to a hiding spot
     matchAnimalsToSpot();
-    console.log('Hidden Animals');
-    console.log(hiddenAnimals);
+    handleMessage(`There are ${numOfAnimals} hidden animals!`);
 }
 
 module.exports = {

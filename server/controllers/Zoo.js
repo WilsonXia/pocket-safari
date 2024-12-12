@@ -2,7 +2,7 @@ const models = require('../models');
 
 const { Zoo, Animal } = models;
 
-const zooPage = (req, res) => res.render('zoo');
+const zooPage = (req, res) => res.render('zoo', {isAdmin: req.session.account.isAdmin});
 
 const getZoo = async (req, res) => {
   try {

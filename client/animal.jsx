@@ -96,12 +96,12 @@ const AnimalForm = (props) => {
 // Make something that allows you to edit pre-existing animals
 const EditAnimalForm = (props) => {
     return (
-        <form id="animalForm"
+        <form id="editAnimalForm"
             onSubmit={(e) => handleAnimalEdit(e, props.animalID, props.triggerReload)}
-            name='animalForm'
+            name='editAnimalForm'
             action='/editAnimal'
             method='POST'
-            className='animalForm is-flex-direction-column is-justify-content-center has-background-primary p-4'
+            className='editAnimalForm is-flex-direction-column is-justify-content-center has-background-primary p-4'
         >
             <div className="field">
                 <label htmlFor="rarity">New Rarity</label>

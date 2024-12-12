@@ -30,7 +30,8 @@ const openAd = () => {
 
     window.setTimeout(() => {
         const exitAdBtn = document.getElementById('btn-exitAd');
-        exitAdBtn.classList.remove('hidden');
+        exitAdBtn.classList.remove('hide');
+        exitAdBtn.classList.add('fadeIn');
     }, 2000)
 }
 
@@ -94,7 +95,7 @@ const PopupAd = () => {
         <div id='popupAd' className='hidden section has-background-primary endScreenScreen'>
             <div className='flexColumnCenter'>
                 <h2 className='has-text-centered title is-size-3'>This is an Advertisement</h2>
-                <button id='btn-exitAd' className='hidden button' onClick={closeAd}>
+                <button id='btn-exitAd' className='hide button' onClick={closeAd}>
                     Close
                 </button>
             </div>

@@ -29,6 +29,25 @@ body {
   background-color: #628A55 !important;
 }
 
+.searched {
+  background-color: #3E6218;
+}
+
+.hidingSpot {
+  background-color: #052F5F;
+}
+
+.hidingSpot:hover {
+  background-color: #005377;
+}
+
+.tile {
+  color: #DCE0D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .animal {
   background-color: #052F5F;
   color: #DCE0D9;
@@ -39,6 +58,11 @@ body {
 form {
   color: #DCE0D9;
   border-radius: 20px;
+}
+
+.editAnimalForm {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .formSubmit {
@@ -99,10 +123,6 @@ nav {
   background-color: #628A55;
 }
 
-.searched {
-  background-color: #3E6218;
-}
-
 #errorBox {
   position: fixed;
   bottom: 10px;
@@ -143,14 +163,6 @@ nav {
   padding: 1rem;
 }
 
-.hidingSpot {
-  background-color: #55acee;
-}
-
-.hidingSpot:hover {
-  background-color: #055694;
-}
-
 #tryCounter {
   width: 5rem;
 }
@@ -188,6 +200,15 @@ nav {
 }
 
 .show {
+  opacity: 1;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.fadeIn {
+  transition: opacity 1s ease;
   opacity: 1;
 }
 
