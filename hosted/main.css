@@ -25,6 +25,84 @@ body {
   box-shadow: 0px 0px 1px 1px #55acee;
 }
 
+.has-background-primary {
+  background-color: #628A55 !important;
+}
+
+.animal {
+  background-color: #052F5F;
+  color: #DCE0D9;
+  padding: 1rem;
+  border-radius: 30px;
+}
+
+form {
+  color: #DCE0D9;
+  border-radius: 20px;
+}
+
+.formSubmit {
+  display: block;
+  transition: background-color 0.4s ease;
+  font-family: "Atma", system-ui;
+  font-size: 1.2em;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+  color: #DCE0D9;
+}
+
+.formSubmit:hover, button:hover {
+  transition: background-color 0.4s ease;
+  background-color: #3E6218;
+  color: #DCE0D9;
+}
+
+a {
+  color: #DCE0D9;
+}
+
+.endScreenScreen {
+  color: #DCE0D9;
+}
+
+.secondary {
+  background-color: #3E6218;
+}
+
+.navlink {
+  padding: 5px;
+  padding-top: 12px;
+  padding-left: 20px;
+  color: #DCE0D9;
+  font-size: 1.3em;
+  float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+  color: #DCE0D9;
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #628A55;
+  transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+  transition: background-color 0.8s ease;
+  background-color: #3E6218;
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+  background-color: #628A55;
+}
+
+.searched {
+  background-color: #3E6218;
+}
+
 #errorBox {
   position: fixed;
   bottom: 10px;
@@ -88,6 +166,7 @@ body {
 .endScreenScreen {
   position: fixed;
   transform: translate(0, 75%);
+  border-radius: 20px;
 }
 
 .animalList {
@@ -108,16 +187,23 @@ body {
   padding: 1rem;
 }
 
+.show {
+  opacity: 1;
+}
+
+.fadeOut {
+  transition: opacity 1s ease;
+  opacity: 0;
+}
+
 html, body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-}
-
-.searched {
-  background-color: #055694;
+  background-image: url("/assets/img/safari-background.jpg");
+  background-size: cover;
 }
 
 #logo {
@@ -128,41 +214,20 @@ html, body {
   border-radius: 8px;
 }
 
-nav {
-  width: 100%;
-  height: 50px;
-  background-color: #55acee;
-}
-
 nav:nth-child(1) {
   padding-left: 25px;
 }
 
-.navlink {
-  padding: 5px;
-  padding-top: 12px;
-  padding-left: 20px;
-  color: white;
-  font-size: 1.3em;
-  float: left;
-}
-
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-  color: white;
-  text-decoration: none;
-  padding: 5px;
-  border-radius: 4px;
-  background-color: #55acee;
-  transition: background-color 0.4s ease;
-}
-
-.navlink a:hover {
-  transition: background-color 0.8s ease;
-  background-color: #66bdff;
-}
-
 .button {
   font-family: "Atma", system-ui;
+}
+
+.input {
+  font-family: "Atma", system-ui;
+}
+
+.radiusSmall {
+  border-radius: 10px;
 }
 
 .flexColumnCenter {
@@ -170,22 +235,6 @@ nav:nth-child(1) {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.formSubmit {
-  display: block;
-  transition: background-color 0.4s ease;
-  font-family: "Atma", system-ui;
-  font-size: 1.2em;
-}
-
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
-  color: white;
-}
-
-.formSubmit:hover {
-  transition: background-color 0.4s ease;
-  background-color: #338acc;
 }
 
 .hidden {

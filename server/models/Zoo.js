@@ -20,7 +20,7 @@ const ZooAnimalSchema = new mongoose.Schema({
   },
   rarity: {
     type: Number,
-  }
+  },
 });
 
 const ZooSchema = new mongoose.Schema({

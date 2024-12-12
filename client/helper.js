@@ -8,9 +8,11 @@ const handleError = (message) => {
 const handleMessage = (message) => {
     document.getElementById('message').textContent = message;
     document.getElementById('messageBox').classList.remove('hidden');
+    document.getElementById('messageBox').classList.remove('fadeOut');
+    document.getElementById('messageBox').classList.add('show');
     window.setTimeout(()=>{
         hideMessage();
-    }, 1200);
+    }, 1000)
 };
 
 const hideError = () => {
@@ -21,7 +23,8 @@ const hideError = () => {
 
 const hideMessage = () => {
     if(document.getElementById('messageBox')){
-        document.getElementById('messageBox').classList.add('hidden');
+        document.getElementById('messageBox').classList.remove('show');
+        document.getElementById('messageBox').classList.add('fadeOut');
     }
 }
 

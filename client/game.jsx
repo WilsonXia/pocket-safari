@@ -84,7 +84,7 @@ const FoundAnimalsList = (props) => {
         }
     );
 
-    return (<ul id='foundAnimalList'>
+    return (<ul id='foundAnimalList' className='secondary radiusSmall p-3'>
         {foundList}
     </ul>);
 }
@@ -109,17 +109,22 @@ const EndScreen = (props) => {
                 <div id='results' className='section has-background-primary endScreenScreen'>
                     <div className='flexColumnCenter'>
                         <h2 className='has-text-centered title is-size-3'>Excursion Complete!</h2>
-                        <section className='flexColumnCenter'>
-                            <p className='content'>You found: </p>
+
+                        <section className='flexColumnCenter md-2'>
+                            <p className='content is-size-4'>You found: </p>
                             <FoundAnimalsList foundAnimals={props.foundAnimals} />
                         </section>
-                        <section id='profit-model' className='section flexColumnCenter'>
-                            <p className='content'>Want one more try?</p>
+
+                        <section id='profit-model' className='flexColumnCenter radiusSmall secondary p-2'>
+                            <p className='content is-size-4'>Want one more try?</p>
                             <button id='btn-viewAd' className='button' onClick={openAd}>
                                 View Ad
                             </button>
                         </section>
-                        <a href="/zoo"><button className='button'>Return to Zoo</button></a>
+
+                        <section className='p-2'>
+                            <a href="/zoo"><button className='button'>Return to Zoo</button></a>
+                        </section>
                     </div>
                 </div>
                 <PopupAd />

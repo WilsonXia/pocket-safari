@@ -139,12 +139,13 @@ const extraTry = () => {
 }
 
 const endGame = async () => {
-    console.log('The game has ended.');
+    handleMessage('Game Over!');
     // Post results
     await sendPost('/addZooAnimal', {animals: foundAnimals});
     window.setTimeout(()=>{
         // show the endScreen
         document.getElementById('endScreen').classList.remove('hidden');
+        hideMessage();
     }, 1000)
 }
 

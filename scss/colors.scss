@@ -1,0 +1,83 @@
+$primaryColor: #628A55;
+$secondaryColor: #3E6218;
+$contrastColor: #052F5F;
+$lightContrastColor: #005377;
+$lightColor: #DCE0D9;
+
+.has-background-primary {
+    background-color: $primaryColor !important;
+}
+
+.animal {
+    background-color: $contrastColor;
+    color: $lightColor;
+    padding: 1rem;
+    border-radius: 30px;
+}
+
+form {
+    color: $lightColor;
+    border-radius: 20px;
+}
+
+.formSubmit {
+    display: block;
+    transition: background-color 0.4s ease;
+    font-family: "Atma", system-ui; 
+    font-size: 1.2em;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+    color: $lightColor;
+}
+
+.formSubmit:hover, button:hover {
+    transition: background-color 0.4s ease;
+    background-color: $secondaryColor;
+    color: $lightColor;
+}
+
+a {
+    color: $lightColor;
+}
+
+.endScreenScreen {
+    color: $lightColor;
+}
+
+.secondary {
+    background-color: $secondaryColor;
+}
+
+.navlink {
+    padding: 5px;
+    padding-top: 12px;
+    padding-left: 20px;
+    color: $lightColor;
+    font-size: 1.3em;
+    float: left;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: $lightColor;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: $primaryColor;
+    transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color: $secondaryColor;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: $primaryColor;
+}
+
+.searched {
+    background-color: $secondaryColor;
+}

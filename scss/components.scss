@@ -64,6 +64,7 @@
 .endScreenScreen {
     position: fixed;
     transform: translate(0, 75%);
+    border-radius: 20px;
 }
 
 .animalList {
@@ -82,4 +83,12 @@
 
 #makeAnimal {
     padding: 1rem;
+}
+
+.show {
+    opacity: 1;
+}
+.fadeOut {
+    transition: opacity 1s ease;
+    opacity: 0;
 }

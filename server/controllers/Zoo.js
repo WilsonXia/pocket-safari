@@ -72,7 +72,7 @@ const addZooAnimal = async (req, res) => {
     // For each foundAnimal, find it in the docs and increment the caught number.
     foundAnimals.forEach(
       (found) => {
-        let currAnimal = docs.animals.find((a) => a.animalID === found._id.toString());
+        const currAnimal = docs.animals.find((a) => a.animalID === found._id.toString());
         currAnimal.numCaught += 1;
         currAnimal.name = found.name;
         currAnimal.description = found.description;
